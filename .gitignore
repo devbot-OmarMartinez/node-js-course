@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+/package-lock.json
+
+# Build outputs
+build/
+dist/
+.build/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary test output
+npm-debug.log
+yarn-error.log
+
+# Environment specific files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# OS specific files
+Thumbs.db
+Desktop.ini
+
+# Version control metadata
+.gitattributes
+*.gitkeep
+
+# IDE specific logs
+*.log
+
+# Coverage reports
+coverage/
+
+# Compiled TypeScript files
+*.js
+*.d.ts
