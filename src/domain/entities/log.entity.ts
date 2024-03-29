@@ -5,17 +5,27 @@ export enum LogSeveryLevel
     high = 'high'
 }
 
+export interface LogEntityOptions {
+    Level: LogSeveryLevel;
+    Message: string;
+    Origin: string;
+    CreatedAt?: Date;
+}
+
 export class LogEntity
 {
     public Level: LogSeveryLevel;
     public Message: string;
     public CreatedAt: Date;
+    public Origin: string;
 
-    constructor(message: string, level: LogSeveryLevel)
+    constructor(options: LogEntityOptions)
     {
-        this.Level = level
-        this.Message = message
-        this.CreatedAt = new Date()
+        const {Message, Level, Origin, CreatedAt = new Date()} = options
+        this.Level = Level
+        this.Message = Message
+        this.CreatedAt = CreatedAt
+        this.Origin = Origin
     }
 
     static fromJson = (jsonData: string): LogEntity =>
