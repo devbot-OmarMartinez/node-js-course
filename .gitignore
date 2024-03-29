@@ -41,3 +41,5 @@ coverage/
 # Compiled TypeScript files
 *.js
 *.d.ts
+
+logs/
