@@ -63,6 +63,8 @@ export class FileSystemDatasource implements LogDatasource
         {
             fs.appendFileSync(this._highLogPath, logAsJson)
         }
+
+        console.log('File system log created');
     }
 
     async getLogs(severity: LogSeveryLevel): Promise<LogEntity[]>

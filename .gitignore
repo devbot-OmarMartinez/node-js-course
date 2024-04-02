@@ -43,3 +43,5 @@ coverage/
 *.d.ts
 
 logs/
+mongo/
+postgres/

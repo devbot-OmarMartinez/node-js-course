@@ -11,8 +11,26 @@ MAILER_EMAIL=
 MAILER_SECRET_KEY=
 
 PROD=false
+
+MONGO_URL=
+MONGO_DB=NOC
+MONGO_USER=
+MONGO_PASS=
+
+POSTGRES_URL=
+POSTGRES_DB=NOC
+POSTGRES_USER=
+POSTGRES_PASSWORD=
 ```
 3. Run
 ```
 npm install
+```
+4. Run docker
+```
+docker-compose up
+```
+5. Run app
+```
+npm run dev
 ```

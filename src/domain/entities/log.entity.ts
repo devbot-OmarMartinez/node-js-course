@@ -5,7 +5,8 @@ export enum LogSeveryLevel
     high = 'high'
 }
 
-export interface LogEntityOptions {
+export interface LogEntityOptions
+{
     Level: LogSeveryLevel;
     Message: string;
     Origin: string;
@@ -21,7 +22,7 @@ export class LogEntity
 
     constructor(options: LogEntityOptions)
     {
-        const {Message, Level, Origin, CreatedAt = new Date()} = options
+        const { Message, Level, Origin, CreatedAt = new Date() } = options
         this.Level = Level
         this.Message = Message
         this.CreatedAt = CreatedAt
@@ -32,5 +33,17 @@ export class LogEntity
     {
         const result = JSON.parse(jsonData) as LogEntity
         return result;
+    }
+
+    static fromObject = (object: { [key: string]: any }): LogEntity =>
+    {
+        const { Message, Level, CreatedAt, Origin } = object;
+        const log = new LogEntity({
+            Message: Message, 
+            Level: Level, 
+            CreatedAt: CreatedAt, 
+            Origin: Origin
+        })
+        return log;
     }
 }
