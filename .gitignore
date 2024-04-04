@@ -39,8 +39,8 @@ Desktop.ini
 coverage/
 
 # Compiled TypeScript files
-*.js
-*.d.ts
+# *.js
+# *.d.ts
 
 keys/
 logs/
