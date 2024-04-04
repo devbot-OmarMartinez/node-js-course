@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { envs } from "../config/plugins/envs.plugin";
 import { LogModel, MongoDatabase } from "../data/mongo";
-import { EmailService } from "../domain/email/email.service";
+import { EmailService } from "./email/email.service";
 import { CheckService } from "../domain/use-cases/checks/check-service";
 import { FileSystemDatasource } from "../infrastructure/datasources/file-system.datasource";
 import { MongoDatasource } from "../infrastructure/datasources/mongo.datasource";
 import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
 import { PostgresDatasource } from "../infrastructure/datasources/postgres.datasource";
-import { LogSeveryLevel } from "../domain/entities/log.entity";
+import { LogSeverityLevel } from "../domain/entities/log.entity";
 import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple";
 
 const fsLogRepository = new LogRepositoryImpl(

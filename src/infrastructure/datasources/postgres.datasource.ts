@@ -1,10 +1,10 @@
 import { PrismaClient, SeverityLevel } from "@prisma/client";
 import { LogDatasource } from "../../domain/datasources/log.datasource";
-import { LogEntity, LogSeveryLevel } from "../../domain/entities/log.entity";
+import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 const prisma = new PrismaClient();
 
-const severityEmun = {
+export const primaSeverityEnum = {
     low: SeverityLevel.LOW,
     high: SeverityLevel.HIGH,
     medium: SeverityLevel.MEDIUM
@@ -16,21 +16,23 @@ export class PostgresDatasource implements LogDatasource
     {
         const newLog = await prisma.logModel.create({
             data: {
-                Level: severityEmun[log.Level],
+                Level: primaSeverityEnum[log.Level],
                 Message: log.Message,
                 Origin: log.Origin
             }
         })
-        console.log(`Postgres log created: ${ newLog.Id }`);
+        console.log('Postgres log created:', newLog.Id);
     }
-    async getLogs(severity: LogSeveryLevel): Promise<LogEntity[]>
+    async getLogs(severity: LogSeverityLevel): Promise<LogEntity[]>
     {
         const logs = await prisma.logModel.findMany({
             where: {
-                Level: severityEmun[severity]
+                Level: primaSeverityEnum[severity]
             }
         });
 
-        return logs.map(LogEntity.fromObject);
+        const result = logs.map(e => ({...e, Level: e.Level.toLowerCase()}))
+
+        return result.map(LogEntity.fromObject);
     }
 }

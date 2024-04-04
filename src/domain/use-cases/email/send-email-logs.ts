@@ -1,5 +1,5 @@
-import { EmailService } from "../../email/email.service";
-import { LogEntity, LogSeveryLevel } from "../../entities/log.entity";
+import { EmailService } from "../../../presentation/email/email.service";
+import { LogEntity, LogSeverityLevel } from "../../entities/log.entity";
 import { LogRepository } from "../../repositories/log.repository";
 
 interface SendLogEmailUseCase
@@ -26,7 +26,7 @@ export class SendEmailLogs implements SendLogEmailUseCase
             }
             
             this.logRepository.saveLog(new LogEntity({
-                Level: LogSeveryLevel.low,
+                Level: LogSeverityLevel.low,
                 Message:'Email sent',
                 Origin: 'send-email-logs.ts'
             }))
@@ -35,7 +35,7 @@ export class SendEmailLogs implements SendLogEmailUseCase
         } catch (error)
         {
             this.logRepository.saveLog(new LogEntity({
-                Level: LogSeveryLevel.high,
+                Level: LogSeverityLevel.high,
                 Message: `${error}`,
                 Origin: 'send-email-logs.ts'
             }))

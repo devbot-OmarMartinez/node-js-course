@@ -1,5 +1,5 @@
 import { LogDatasource } from "../../domain/datasources/log.datasource";
-import { LogEntity, LogSeveryLevel } from "../../domain/entities/log.entity";
+import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 import fs from 'fs'
 
 export class FileSystemDatasource implements LogDatasource
@@ -37,9 +37,8 @@ export class FileSystemDatasource implements LogDatasource
     private getLogsFromFile = (path: string): LogEntity[] =>
     {
         const content = fs.readFileSync(path, 'utf-8')
-        const logs = content
-            .split('\n')
-            .map(log => LogEntity.fromJson(log));
+        const allLogs = content.split('\n').filter(e => e !== undefined && e !== '')
+        const logs = allLogs.map(log => LogEntity.fromJson(log));
 
         return logs;
     }
@@ -49,17 +48,17 @@ export class FileSystemDatasource implements LogDatasource
         const logAsJson = `${ JSON.stringify(newLog) }\n`;
         fs.appendFileSync(this._allLogPath, logAsJson)
 
-        if (newLog.Level === LogSeveryLevel.low)
+        if (newLog.Level === LogSeverityLevel.low)
         {
             return
         }
 
-        if (newLog.Level === LogSeveryLevel.medium)
+        if (newLog.Level === LogSeverityLevel.medium)
         {
             fs.appendFileSync(this._mediumLogPath, logAsJson)
         }
 
-        if (newLog.Level === LogSeveryLevel.high)
+        if (newLog.Level === LogSeverityLevel.high)
         {
             fs.appendFileSync(this._highLogPath, logAsJson)
         }
@@ -67,18 +66,18 @@ export class FileSystemDatasource implements LogDatasource
         console.log('File system log created');
     }
 
-    async getLogs(severity: LogSeveryLevel): Promise<LogEntity[]>
+    async getLogs(severity: LogSeverityLevel): Promise<LogEntity[]>
     {
         let result = [] as LogEntity[];
         switch (severity)
         {
-            case LogSeveryLevel.low:
+            case LogSeverityLevel.low:
                 result = this.getLogsFromFile(this._allLogPath);
                 break;
-            case LogSeveryLevel.medium:
+            case LogSeverityLevel.medium:
                 result = this.getLogsFromFile(this._mediumLogPath);
                 break;
-            case LogSeveryLevel.high:
+            case LogSeverityLevel.high:
                 result = this.getLogsFromFile(this._highLogPath);
                 break;
 
