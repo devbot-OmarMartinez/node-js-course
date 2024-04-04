@@ -23,8 +23,8 @@ export class Server
 
         this.app.use(express.static(this.public_path));
 
-        this.app.get('', (req, res) => {
-            const indexPath = path.join(__dirname + `../../${this.public_path}/index.html`)
+        this.app.get('*', (req, res) => {
+            const indexPath = path.join(__dirname + `../../../${this.public_path}/index.html`)
             res.sendFile(indexPath)
         })
 
