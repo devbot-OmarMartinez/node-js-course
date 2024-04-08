@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import path from 'path';
-import { TodosController } from './todos/controller';
+import { TodosController } from './todos/controller.ddd';
 
 interface Options
 {
