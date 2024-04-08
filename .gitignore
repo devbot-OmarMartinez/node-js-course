@@ -45,6 +45,6 @@ coverage/
 keys/
 logs/
 mongo/
-postgres/
+/postgres
 mongo-test/
 postgres-test/
